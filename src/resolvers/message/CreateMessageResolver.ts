@@ -25,6 +25,7 @@ export class CreateMessageResolver {
     const message = await MessageModel.create({
       content: data.content,
       author: userId,
+      ...(data.parent && { parent: data.parent }),
     });
 
     return message;
@@ -33,5 +34,10 @@ export class CreateMessageResolver {
   @FieldResolver()
   async author(@Root() message: any): Promise<User> {
     return (await UserModel.findById(message.author))!;
+  }
+
+  @FieldResolver()
+  async parent(@Root() message: any): Promise<Message> {
+    return (await MessageModel.findById(message.parent))!;
   }
 }

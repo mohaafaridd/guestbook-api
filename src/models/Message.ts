@@ -20,6 +20,10 @@ export class Message {
   @prop({ ref: User, required: true })
   author: Ref<User>;
 
+  @Field(() => Message, { nullable: true })
+  @prop({ ref: Message, required: false })
+  parent?: Ref<Message>;
+
   @Field()
   @prop({ default: Date.now() })
   createdAt?: Date;
