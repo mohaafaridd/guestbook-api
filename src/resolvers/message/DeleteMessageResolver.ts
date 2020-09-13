@@ -12,11 +12,12 @@ export class DeleteMessageResolver {
     @Args() { id }: DeleteMessageArgs,
     @Ctx() { req }: Context
   ): Promise<Message> {
-    // TODO => Authorization here
     const userId = getUserId(req);
     const message = await MessageModel.findById(id);
-    if (!message || message.author !== userId)
-      throw new ApolloError('Authorization required');
+    if (!message) throw new ApolloError('Message was not found');
+    const authorId = String(message.author);
+    if (authorId !== userId) throw new ApolloError('Authorization required');
+
     // TODO => Cascade delete
     await MessageModel.remove(message._id);
 
