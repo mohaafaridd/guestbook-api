@@ -15,11 +15,11 @@ export class Message {
   @prop({ required: true, minlength: 1, trim: true })
   content: string;
 
-  @Field(() => Date)
+  @Field()
   @prop({ default: Date.now() })
   createdAt?: Date;
 
-  @Field(() => Int)
+  @Field()
   @prop({ default: Date.now() })
   updatedAt?: Date;
 }

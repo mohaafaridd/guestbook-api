@@ -2,7 +2,10 @@ import { GraphQLSchema } from 'graphql';
 import { buildSchema, Resolver, Query, Arg } from 'type-graphql';
 import { User, UserModel } from '../models';
 import { CreateUserResolver, LoginUserResolver } from '../resolvers';
-import { CreateMessageResolver } from '../resolvers/message';
+import {
+  CreateMessageResolver,
+  UpdateMessageResolver,
+} from '../resolvers/message';
 @Resolver()
 export class TemporaryResolver {
   @Query(() => String)
@@ -30,6 +33,7 @@ export class SchemaLoader {
         CreateUserResolver,
         LoginUserResolver,
         CreateMessageResolver,
+        UpdateMessageResolver,
       ],
     });
 
