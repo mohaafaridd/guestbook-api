@@ -8,7 +8,10 @@
     "dev": "env-cmd -f ./config/dev.env ts-node-dev ./src/index.ts",
     "test": "env-cmd -f ./config/test.env jest --watch --runInBand"
   },
-  "dependencies": {},
+  "dependencies": {
+    "apollo-server-express": "^2.17.0",
+    "graphql": "^15.3.0"
+  },
   "devDependencies": {
     "@types/jest": "^26.0.13",
     "env-cmd": "^10.1.0",
