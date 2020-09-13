@@ -6,6 +6,8 @@ import {
   CreateMessageResolver,
   UpdateMessageResolver,
   DeleteMessageResolver,
+  FindManyMessagesResolver,
+  FindOneMessageResolver,
 } from '../resolvers/message';
 @Resolver()
 export class TemporaryResolver {
@@ -36,6 +38,8 @@ export class SchemaLoader {
         CreateMessageResolver,
         UpdateMessageResolver,
         DeleteMessageResolver,
+        FindManyMessagesResolver,
+        FindOneMessageResolver,
       ],
     });
 
