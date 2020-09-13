@@ -5,6 +5,7 @@ import { CreateUserResolver, LoginUserResolver } from '../resolvers';
 import {
   CreateMessageResolver,
   UpdateMessageResolver,
+  DeleteMessageResolver,
 } from '../resolvers/message';
 @Resolver()
 export class TemporaryResolver {
@@ -34,6 +35,7 @@ export class SchemaLoader {
         LoginUserResolver,
         CreateMessageResolver,
         UpdateMessageResolver,
+        DeleteMessageResolver,
       ],
     });
 
