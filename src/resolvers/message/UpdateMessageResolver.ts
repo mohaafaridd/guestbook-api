@@ -1,21 +1,33 @@
 import { ApolloError } from 'apollo-server-express';
-import { Arg, Mutation, Resolver } from 'type-graphql';
+import { Types } from 'mongoose';
+import { Arg, Ctx, Mutation, Resolver } from 'type-graphql';
+import { Context } from '../../interfaces';
 import { Message, MessageModel } from '../../models';
+import { getUserId } from '../../utils';
 import { UpdateMessageInput } from './UpdateMessageInput';
 
 @Resolver()
 export class UpdateMessageResolver {
   @Mutation(() => Message)
-  async updateMessage(@Arg('data') data: UpdateMessageInput): Promise<Message> {
-    // TODO => Authorization Here
-    const message = await MessageModel.findByIdAndUpdate(data.messageId, {
-      content: data.content,
-    });
+  async updateMessage(
+    @Arg('data') data: UpdateMessageInput,
+    @Ctx() { req }: Context
+  ): Promise<Message> {
+    const userId = getUserId(req);
+    const message = await MessageModel.findById(data.messageId);
 
-    if (!message) throw new ApolloError("Couldn't find message");
+    if (!message) throw new ApolloError('Message was not found');
+    const authorId = String(message.author);
+    if (authorId !== userId) throw new ApolloError('Authorization required');
 
-    await message.save();
+    const updated = await MessageModel.findByIdAndUpdate(
+      data.messageId,
+      { content: data.content },
+      { new: true }
+    );
 
-    return message;
+    if (!updated) throw new ApolloError('Message was not found');
+
+    return updated;
   }
 }

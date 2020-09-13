@@ -6,11 +6,12 @@ export const getUserId = (request: Request, requireAuth = true) => {
   const header = request.headers.authorization;
 
   if (header) {
-    const token = header.replace('Bearer ', '');
+    const [, token] = header.split(' ');
     const decoded: any = jwt.verify(
       token,
       process.env.JWT_SECRET || 'hard jwt secret'
     );
+
     return decoded.userId;
   }
 
