@@ -18,8 +18,6 @@ export class CreateUserResolver {
       password,
     });
 
-    console.log('user', user);
-
     const token = jwt.sign(
       { userId: user._id },
       process.env.JWT_SECRET || 'hard jwt secret'
