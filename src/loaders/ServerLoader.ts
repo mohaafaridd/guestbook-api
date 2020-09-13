@@ -1,5 +1,6 @@
 import { ApolloServer } from 'apollo-server-express';
 import { GraphQLSchema } from 'graphql';
+import { Context } from '../interfaces';
 
 interface LoadApolloServerArgs {
   schema: GraphQLSchema;
@@ -18,6 +19,7 @@ export class ApolloServerLoader {
       introspection: validEnvironments.includes(process.env.NODE_ENV || ''),
       playground: validEnvironments.includes(process.env.NODE_ENV || ''),
       schema: args.schema,
+      context: ({ req }): Context => ({ req }),
     });
 
     return this.server;
