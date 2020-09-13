@@ -9,17 +9,20 @@
     "test": "env-cmd -f ./config/test.env jest --watch --runInBand"
   },
   "dependencies": {
+    "@typegoose/typegoose": "^7.3.5",
     "apollo-server-express": "^2.17.0",
     "chalk": "^4.1.0",
     "class-validator": "^0.12.2",
     "express": "^4.17.1",
     "graphql": "^15.3.0",
+    "mongoose": "^5.10.5",
     "reflect-metadata": "^0.1.13",
     "type-graphql": "^1.0.0"
   },
   "devDependencies": {
     "@types/express": "^4.17.8",
     "@types/jest": "^26.0.13",
+    "@types/mongoose": "^5.7.36",
     "@types/node": "^14.10.1",
     "env-cmd": "^10.1.0",
     "jest": "^26.4.2",
