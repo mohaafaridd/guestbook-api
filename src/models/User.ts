@@ -5,7 +5,6 @@ import { Types } from 'mongoose';
 @ObjectType()
 export class User {
   @Field(() => ID)
-  @prop()
   _id: Types.ObjectId;
 
   @Field(() => String)
@@ -16,7 +15,6 @@ export class User {
   @prop({ unique: true, required: true })
   email: string;
 
-  @Field(() => String)
   @prop({ required: true, minlength: 6 })
   password: string;
 }
