@@ -19,7 +19,7 @@ export class DeleteMessageResolver {
     if (authorId !== userId) throw new ApolloError('Authorization required');
 
     // TODO => Cascade delete
-    await MessageModel.remove(message._id);
+    await message.remove();
 
     return message;
   }

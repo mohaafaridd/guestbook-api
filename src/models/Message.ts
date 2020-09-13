@@ -8,6 +8,10 @@ import { User } from './User';
   this.updatedAt = new Date();
   next();
 })
+@pre<Message>('remove', async function (next) {
+  await MessageModel.remove({ parent: this._id });
+  next();
+})
 export class Message {
   @Field(() => ID)
   _id: Types.ObjectId;
