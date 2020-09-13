@@ -2,6 +2,7 @@ import { GraphQLSchema } from 'graphql';
 import { buildSchema, Resolver, Query, Arg } from 'type-graphql';
 import { User, UserModel } from '../models';
 import { CreateUserResolver, LoginUserResolver } from '../resolvers';
+import { CreateMessageResolver } from '../resolvers/message';
 @Resolver()
 export class TemporaryResolver {
   @Query(() => String)
@@ -24,7 +25,12 @@ export class SchemaLoader {
     if (this.schema) return this.schema;
 
     this.schema = await buildSchema({
-      resolvers: [TemporaryResolver, CreateUserResolver, LoginUserResolver],
+      resolvers: [
+        TemporaryResolver,
+        CreateUserResolver,
+        LoginUserResolver,
+        CreateMessageResolver,
+      ],
     });
 
     return this.schema;

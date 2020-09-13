@@ -4,7 +4,7 @@ import { Types } from 'mongoose';
 
 @ObjectType()
 @pre<Message>('save', function (next) {
-  this.updatedAt = Date.now();
+  this.updatedAt = new Date();
   next();
 })
 export class Message {
@@ -12,16 +12,16 @@ export class Message {
   _id: Types.ObjectId;
 
   @Field(() => String)
-  @prop({ required: true, minlength: 1 })
+  @prop({ required: true, minlength: 1, trim: true })
   content: string;
 
   @Field(() => Date)
   @prop({ default: Date.now() })
-  createdAt: Date;
+  createdAt?: Date;
 
   @Field(() => Int)
   @prop({ default: Date.now() })
-  updatedAt: number;
+  updatedAt?: Date;
 }
 
 export const MessageModel = getModelForClass(Message);
