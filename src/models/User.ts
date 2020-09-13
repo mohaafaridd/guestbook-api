@@ -1,6 +1,7 @@
-import { Field, ID, ObjectType } from 'type-graphql';
+import { Field, FieldResolver, ID, ObjectType, Root } from 'type-graphql';
 import { getModelForClass, prop } from '@typegoose/typegoose';
 import { Types } from 'mongoose';
+import { Message, MessageModel } from './Message';
 
 @ObjectType()
 export class User {

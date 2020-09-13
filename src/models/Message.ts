@@ -1,6 +1,7 @@
 import { Field, ID, Int, ObjectType } from 'type-graphql';
-import { getModelForClass, pre, prop } from '@typegoose/typegoose';
+import { getModelForClass, pre, prop, Ref } from '@typegoose/typegoose';
 import { Types } from 'mongoose';
+import { User } from './User';
 
 @ObjectType()
 @pre<Message>('save', function (next) {
@@ -14,6 +15,10 @@ export class Message {
   @Field(() => String)
   @prop({ required: true, minlength: 1, trim: true })
   content: string;
+
+  @Field(() => User)
+  @prop({ ref: User, required: true })
+  author: Ref<User>;
 
   @Field()
   @prop({ default: Date.now() })
