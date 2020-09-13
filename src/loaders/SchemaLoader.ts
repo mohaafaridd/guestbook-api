@@ -1,11 +1,19 @@
 import { GraphQLSchema } from 'graphql';
-import { buildSchema, Resolver, Query } from 'type-graphql';
+import { buildSchema, Resolver, Query, Arg } from 'type-graphql';
+import { User, UserModel } from '../models';
 
 @Resolver()
 export class TemporaryResolver {
   @Query(() => String)
   async hello() {
     return 'Hello World';
+  }
+
+  @Query(() => User)
+  async getUserById(@Arg('id') id: string) {
+    const user = await UserModel.findById(id);
+    console.log('user', user);
+    return user;
   }
 }
 
