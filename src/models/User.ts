@@ -17,6 +17,9 @@ export class User {
 
   @prop({ required: true, minlength: 6 })
   password: string;
+
+  @Field(() => String, { nullable: true })
+  token?: string;
 }
 
 export const UserModel = getModelForClass(User);
