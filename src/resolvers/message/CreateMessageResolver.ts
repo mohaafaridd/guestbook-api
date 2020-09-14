@@ -40,4 +40,12 @@ export class CreateMessageResolver {
   async parent(@Root() message: any): Promise<Message> {
     return (await MessageModel.findById(message.parent))!;
   }
+
+  @FieldResolver(() => [Message])
+  async replies(@Root() message: any): Promise<Message[]> {
+    const messages = await MessageModel.find({
+      parent: message._id,
+    });
+    return messages;
+  }
 }
