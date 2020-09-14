@@ -1,10 +1,10 @@
-import { Arg, Mutation, Resolver } from 'type-graphql';
+import { Arg, FieldResolver, Mutation, Resolver, Root } from 'type-graphql';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { User, UserModel } from '../../models';
+import { Message, MessageModel, User, UserModel } from '../../models';
 import { CreateUserInput } from './CreateUserInput';
 
-@Resolver()
+@Resolver(User)
 export class CreateUserResolver {
   @Mutation(() => User)
   async createUser(@Arg('data') data: CreateUserInput): Promise<User> {
@@ -26,5 +26,13 @@ export class CreateUserResolver {
     user.token = token;
 
     return user;
+  }
+
+  @FieldResolver(() => [Message])
+  async messages(@Root() author: any): Promise<Message[]> {
+    const messages = await MessageModel.find({
+      author: author._id,
+    });
+    return messages;
   }
 }
